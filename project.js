@@ -10,6 +10,7 @@ const divide = (a, b) => b === 0 ? "Error" : a / b;
 let displayValue = "";
 let firstNumber = null;
 let currentOperator = null;
+let isResultDisplayed = false;
 
 
 function updateDisplay() {
@@ -19,8 +20,11 @@ function updateDisplay() {
 
 
 function handleNumberClick(number) {
-    // If the current display is '0', replace it with the clicked number
-    if (displayValue === "0") {
+
+    if (isResultDisplayed) {
+        displayValue = number;
+        isResultDisplayed = false;
+    } else if (displayValue === "0") {
         displayValue = number;
     } else {
         displayValue += number;
@@ -36,15 +40,21 @@ numberButtons.forEach(button => {
 });
 
 function handleOperatorClick(operator) {
-    if (firstNumber === null) {
-        firstNumber = parseFloat(displayValue);
+    if (isResultDisplayed) {   
+        isResultDisplayed = false;
     } else if (currentOperator) {
-        const secondNumber = parseFloat(displayValue.split(currentOperator).pop());
-        firstNumber = operate(currentOperator, firstNumber, secondNumber);
-        displayValue = firstNumber.toString();
-    }
+        calculate();
+    } else {
+        firstNumber = parseFloat(displayValue);
+    };
+
+    if (["+", "-", "*", "/"].includes(displayValue.slice(-1))) {
+        displayValue = displayValue.slice(0, -1) + operator;
+    } else {
+        displayValue += operator;
+    };
     currentOperator = operator;
-    displayValue += operator;  // Reset display for next number
+    
     updateDisplay();
 };
 
@@ -54,6 +64,12 @@ operatorButtons.forEach(button => {
         handleOperatorClick(button.textContent);
     });
 });
+
+function calculate() {
+    const secondNumber = parseFloat(displayValue.split(currentOperator).pop());
+    firstNumber = operate(currentOperator, firstNumber, secondNumber);
+    displayValue = firstNumber.toString();
+};
 
 function operate(operator, a, b) {     
     if (operator === "+") {
@@ -69,16 +85,20 @@ function operate(operator, a, b) {
     }
 }; 
 
-/*
+
 function handleEqualClick() {
     if (currentOperator && firstNumber !== null) {
-        secondNumber = parseFloat(displayValue);
-        displayValue = operate(currentOperator, firstNumber, secondNumber).toString();
-        firstNumber = null; // Reset for next calculation
-        currentOperator = null;
+        calculate();
         updateDisplay();
+        isResultDisplayed = true; 
+        currentOperator = null;  
     }
-}
+};
+
+    
+
+const equalButton = document.querySelector('.btn.equal');
+equalButton.addEventListener('click', handleEqualClick);
 
 
 
@@ -87,18 +107,9 @@ function handleClearClick() {
     firstNumber = null;
     secondNumber = null;
     currentOperator = null;
+    isResultDisplayed = false;
     updateDisplay();
 }
 
-
-
-
-
-
-
-
-const equalButton = document.querySelector('.btn.equal');
-equalButton.addEventListener('click', handleEqualClick);
-
 const clearButton = document.querySelector('.btn.clear');
-clearButton.addEventListener('click', handleClearClick); */
+clearButton.addEventListener('click', handleClearClick); 
