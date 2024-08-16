@@ -7,10 +7,10 @@
 }
 
 #container {
-    height: 410px;
+    height: 430px;
     width: 350px;
     margin: 50px auto;
-    background-color: rgb(78, 79, 177);
+    background-color: rgb(81, 87, 85);
     padding: 20px;
 
 }
@@ -22,26 +22,41 @@
     padding: 18px;
     text-align: end;
     font-size: 20px;
-    background-color: rgb(228, 214, 196);
+    background-color: rgb(231, 228, 222);
     border: 1px solid rgb(148, 166, 184);
 
 }
 
-.main-buttons {
+.buttons-container {
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: repeat(4, 1fr) 1fr;
     grid-template-columns: repeat(4, 1fr);
     gap: 1px;
 }
 
-.delete-buttons {
-    display: grid;
-    grid-template-rows: auto 1fr;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1px;
-
-}
-
 button {
     padding: 18px;
+}
+
+.lastrow {
+    display: grid;
+    grid-column: 1 / -1;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1px;
+}
+
+.btn.operator {
+    background-color: rgb(92, 94, 207);
+}
+
+.btn.equal {
+    background-color: rgb(92, 94, 207);
+}
+
+.percentage, .backspace, .clear {
+    background-color: rgb(176, 216, 204);
+}
+
+.btn.number, .btn.decimal {
+    background-color: rgb(196, 70, 54);
 }

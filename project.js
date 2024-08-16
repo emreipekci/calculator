@@ -4,6 +4,7 @@ const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
 const multiply = (a, b) => a * b;
 const divide = (a, b) => b === 0 ? "Error" : a / b;
+const percentageOf = (a, b) => (a * b) / 100;
 
 //variables
 
@@ -39,23 +40,37 @@ numberButtons.forEach(button => {
     });
 });
 
+function handleDecimalClick() {
+    if (!displayValue.includes(".")) {
+        displayValue += ".";
+        updateDisplay();
+    }
+};
+
+const decimalButton = document.querySelector(".btn.decimal");
+decimalButton.addEventListener("click", handleDecimalClick);
+
+
 function handleOperatorClick(operator) {
+    
     if (isResultDisplayed) {   
         isResultDisplayed = false;
-    } else if (currentOperator) {
+        
+    } else if (currentOperator) {    //Bug is here!!!
         calculate();
     } else {
         firstNumber = parseFloat(displayValue);
     };
+    debugger;
 
-    if (["+", "-", "*", "/"].includes(displayValue.slice(-1))) {
+    if (["+", "-", "*", "/", "%"].includes(displayValue.slice(-1))) {
         displayValue = displayValue.slice(0, -1) + operator;
     } else {
         displayValue += operator;
     };
-    currentOperator = operator;
     
     updateDisplay();
+    currentOperator = operator;
 };
 
 const operatorButtons = document.querySelectorAll(".btn.operator");
@@ -79,12 +94,13 @@ function operate(operator, a, b) {
     } else if (operator === "*") {
         return multiply(a, b);
     } else if (operator === "/") {
-        return divide(a, b);
+        return divide(a, b); 
+    } else if (operator === "%") {
+        return percentageOf(a, b);
     } else {
         return "Invalid operator";
     }
 }; 
-
 
 function handleEqualClick() {
     if (currentOperator && firstNumber !== null) {
@@ -95,12 +111,8 @@ function handleEqualClick() {
     }
 };
 
-    
-
 const equalButton = document.querySelector('.btn.equal');
 equalButton.addEventListener('click', handleEqualClick);
-
-
 
 function handleClearClick() {
     displayValue = '0';
