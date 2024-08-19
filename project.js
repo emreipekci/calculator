@@ -51,27 +51,29 @@ const decimalButton = document.querySelector(".btn.decimal");
 decimalButton.addEventListener("click", handleDecimalClick);
 
 
+
 function handleOperatorClick(operator) {
-    
     if (isResultDisplayed) {   
         isResultDisplayed = false;
-        
-    } else if (currentOperator) {    //Bug is here!!!
-        calculate();
+    } 
+
+    if (currentOperator) {
+        if (!displayValue.slice(-1).match(/[0-9.]/)) {
+            displayValue = displayValue.slice(0, -1) + operator;
+
+        } else { 
+            calculate();
+            firstNumber = parseFloat(displayValue);
+            displayValue += operator;
+        }
     } else {
         firstNumber = parseFloat(displayValue);
-    };
-    debugger;
-
-    if (["+", "-", "*", "/", "%"].includes(displayValue.slice(-1))) {
-        displayValue = displayValue.slice(0, -1) + operator;
-    } else {
         displayValue += operator;
-    };
-    
+    }
+
     updateDisplay();
     currentOperator = operator;
-};
+}
 
 const operatorButtons = document.querySelectorAll(".btn.operator");
 operatorButtons.forEach(button => {
@@ -117,7 +119,6 @@ equalButton.addEventListener('click', handleEqualClick);
 function handleClearClick() {
     displayValue = '0';
     firstNumber = null;
-    secondNumber = null;
     currentOperator = null;
     isResultDisplayed = false;
     updateDisplay();
@@ -125,3 +126,14 @@ function handleClearClick() {
 
 const clearButton = document.querySelector('.btn.clear');
 clearButton.addEventListener('click', handleClearClick); 
+
+function handleBackspaceClick() {
+    displayValue = displayValue.slice(0, -1);
+    if (displayValue === '') {
+        displayValue = '0'; 
+    }
+    updateDisplay();
+};
+
+const backspaceButton = document.querySelector('.btn.backspace');
+backspaceButton.addEventListener('click', handleBackspaceClick);

@@ -53,7 +53,7 @@ button {
     background-color: rgb(92, 94, 207);
 }
 
-.percentage, .backspace, .clear {
+.operator.percentage, .backspace, .clear {
     background-color: rgb(176, 216, 204);
 }
 
