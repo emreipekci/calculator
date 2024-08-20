@@ -15,8 +15,11 @@ let isResultDisplayed = false;
 
 
 function updateDisplay() {
+    if (displayValue.length > 23 || displayValue === Infinity) {
+        handleClearClick();
+    }
     const displayElement = document.querySelector(".display");
-    displayElement.textContent = displayValue;
+    displayElement.textContent = displayValue;   
 };
 
 
@@ -137,3 +140,18 @@ function handleBackspaceClick() {
 
 const backspaceButton = document.querySelector('.btn.backspace');
 backspaceButton.addEventListener('click', handleBackspaceClick);
+
+function handleButtonPress(event) {
+    event.target.classList.add("active");
+}
+
+function handleButtonRelease(event) {
+    event.target.classList.remove("active");
+}
+
+const allButtons = document.querySelectorAll(".btn");
+allButtons.forEach(button => {
+    button.addEventListener("mousedown", handleButtonPress);
+    button.addEventListener("mouseup", handleButtonRelease);
+    button.addEventListener("mouseleave", handleButtonRelease);
+});

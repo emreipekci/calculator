@@ -3,16 +3,30 @@
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;   
+    font-size: 18px;
+    border-radius: 0.3rem;      
+}
+
+body {
+    background-color: #e7e4de;
+       
+}
+
+.heading {
+    font-family: "sans-serif", Arial;
+    font-size: 50px;
+    color: #6F9BD1;
+    text-align: center;
+    margin-top: 40px;
 }
 
 #container {
     height: 430px;
     width: 350px;
     margin: 50px auto;
-    background-color: rgb(81, 87, 85);
+    background-color: #515755;
     padding: 20px;
-
+     
 }
 
 .display {
@@ -22,20 +36,20 @@
     padding: 18px;
     text-align: end;
     font-size: 20px;
-    background-color: rgb(231, 228, 222);
-    border: 1px solid rgb(148, 166, 184);
-
+    background-color: #e7e4de;
+    border: 2px solid #505050;    
 }
 
 .buttons-container {
     display: grid;
     grid-template-rows: repeat(4, 1fr) 1fr;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
+    gap: 2px;
 }
 
 button {
     padding: 18px;
+    cursor: pointer;      
 }
 
 .lastrow {
@@ -45,18 +59,34 @@ button {
     gap: 1px;
 }
 
-.btn.operator {
-    background-color: rgb(92, 94, 207);
-}
-
-.btn.equal {
-    background-color: rgb(92, 94, 207);
+.btn.operator, .btn.equal {
+    background-color: #224193;
+    transition: background-color 0s;
 }
 
 .operator.percentage, .backspace, .clear {
-    background-color: rgb(176, 216, 204);
+    background-color: #6F9BD1;
+    transition: background-color 0.1s ease;
 }
 
 .btn.number, .btn.decimal {
-    background-color: rgb(196, 70, 54);
+    background-color: #DF3C5F;
+    transition: background-color 0.1s ease;
+}
+
+.btn.active {
+    background-color: #e7e4de;
+}
+
+.footer {
+    margin: 0 auto;
+    text-align: center;
+    font-family: "Helvetica", Arial;
+    font-size: 17px;
+    color: #505050;
+}
+
+.footer-link {
+    color: #6F9BD1;
+    font-size: 17px;
 }
