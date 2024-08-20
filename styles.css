@@ -9,7 +9,12 @@
 
 body {
     background-color: #e7e4de;
-       
+    display: flex;          
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    height: 100vh;           
+    margin: 0;                      
 }
 
 .heading {
@@ -17,7 +22,7 @@ body {
     font-size: 50px;
     color: #6F9BD1;
     text-align: center;
-    margin-top: 40px;
+    margin-bottom: 20px; 
 }
 
 #container {
@@ -26,7 +31,7 @@ body {
     margin: 50px auto;
     background-color: #515755;
     padding: 20px;
-     
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); 
 }
 
 .display {
@@ -79,7 +84,7 @@ button {
 }
 
 .footer {
-    margin: 0 auto;
+    margin: 20px auto 0 auto; 
     text-align: center;
     font-family: "Helvetica", Arial;
     font-size: 17px;

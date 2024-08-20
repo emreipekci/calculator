@@ -1,4 +1,4 @@
-//operation functions
+//Operation Functions
 
 const add = (a, b) => a + b;
 const subtract = (a, b) => a - b;
@@ -6,7 +6,7 @@ const multiply = (a, b) => a * b;
 const divide = (a, b) => b === 0 ? "Error" : a / b;
 const percentageOf = (a, b) => (a * b) / 100;
 
-//variables
+//Variables
 
 let displayValue = "";
 let firstNumber = null;
@@ -22,6 +22,7 @@ function updateDisplay() {
     displayElement.textContent = displayValue;   
 };
 
+//Number Buttons
 
 function handleNumberClick(number) {
 
@@ -43,6 +44,8 @@ numberButtons.forEach(button => {
     });
 });
 
+//Decimal Button
+
 function handleDecimalClick() {
     if (!displayValue.includes(".")) {
         displayValue += ".";
@@ -53,7 +56,7 @@ function handleDecimalClick() {
 const decimalButton = document.querySelector(".btn.decimal");
 decimalButton.addEventListener("click", handleDecimalClick);
 
-
+//Operator Buttons
 
 function handleOperatorClick(operator) {
     if (isResultDisplayed) {   
@@ -85,6 +88,8 @@ operatorButtons.forEach(button => {
     });
 });
 
+//Calculation
+
 function calculate() {
     const secondNumber = parseFloat(displayValue.split(currentOperator).pop());
     firstNumber = operate(currentOperator, firstNumber, secondNumber);
@@ -107,6 +112,8 @@ function operate(operator, a, b) {
     }
 }; 
 
+//Equal Button
+
 function handleEqualClick() {
     if (currentOperator && firstNumber !== null) {
         calculate();
@@ -119,6 +126,8 @@ function handleEqualClick() {
 const equalButton = document.querySelector('.btn.equal');
 equalButton.addEventListener('click', handleEqualClick);
 
+//Clear Button
+
 function handleClearClick() {
     displayValue = '0';
     firstNumber = null;
@@ -130,6 +139,8 @@ function handleClearClick() {
 const clearButton = document.querySelector('.btn.clear');
 clearButton.addEventListener('click', handleClearClick); 
 
+//Backspace Button
+
 function handleBackspaceClick() {
     displayValue = displayValue.slice(0, -1);
     if (displayValue === '') {
@@ -140,6 +151,8 @@ function handleBackspaceClick() {
 
 const backspaceButton = document.querySelector('.btn.backspace');
 backspaceButton.addEventListener('click', handleBackspaceClick);
+
+//All Buttons Press
 
 function handleButtonPress(event) {
     event.target.classList.add("active");
@@ -155,3 +168,37 @@ allButtons.forEach(button => {
     button.addEventListener("mouseup", handleButtonRelease);
     button.addEventListener("mouseleave", handleButtonRelease);
 });
+
+//Keyboard Event Listeners
+
+function handleKeyPress(event) {
+    const key = event.key;
+    let button;
+
+    if(!isNaN(key)) {
+        handleNumberClick(key);
+        button = document.querySelector(`.btn.number[data-key="${key}"]`);
+    } else if (key === ".") {
+        handleDecimalClick();
+        button = document.querySelector(`.btn.decimal`);
+    } else if (["+", "-", "*", "/", "%"].includes(key)) {
+        handleOperatorClick(key);
+        button = document.querySelector(`.btn.operator[data-key="${key}"]`);
+    } else if (key === "Enter") {
+        handleEqualClick();
+        button = document.querySelector('.btn.equal');
+    } else if (key === "Backspace") {
+        handleBackspaceClick();
+        button = document.querySelector('.btn.backspace');
+    } else if (key === "Escape") {
+        handleClearClick();
+        button = document.querySelector('.btn.clear');
+    }
+
+    if (button) {
+        button.classList.add('active');
+        setTimeout(() => button.classList.remove('active'), 150);
+    }
+};
+
+document.addEventListener("keydown", handleKeyPress);
