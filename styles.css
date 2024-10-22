@@ -13,8 +13,7 @@ body {
     flex-direction: column;
     justify-content: center; 
     align-items: center;     
-    height: 100vh;           
-    margin: 0;                      
+    height: 100vh;                               
 }
 
 .heading {
@@ -95,3 +94,18 @@ button {
     color: #6F9BD1;
     font-size: 17px;
 }
+
+@media (max-width: 425px) {
+    #container {
+        height: fit-content;
+        width: fit-content;
+    }
+    .heading {
+        font-size: 35px;
+    }
+
+    .footer, .footer-link {
+        font-size: 14px;
+    }
+}
+
